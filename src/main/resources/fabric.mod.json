@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "beehives",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Beehives",
+  "description": "Adds bee hives to b1.7.3",
   "authors": [
-    "Me!"
+    "Slainlight"
   ],
   "contact": {
     "homepage": "https://glass-launcher.net/",
@@ -14,14 +14,14 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "assets/beehives/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.glasslauncher.example.ExampleMod"
     ],
     "stationapi:event_bus": [
+      "com.matthewperiut.beehives.BlockListener"
     ],
     "stationapi:event_bus_client": [
     ],
@@ -29,7 +29,7 @@
     ]
   },
   "mixins": [
-    "examplemod.mixins.json"
+    "beehives.mixins.json"
   ],
 
   "depends": {
