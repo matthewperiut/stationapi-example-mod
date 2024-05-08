@@ -21,7 +21,9 @@
     "main": [
     ],
     "stationapi:event_bus": [
-      "com.matthewperiut.beehives.BlockListener"
+      "com.matthewperiut.beehives.BlockListener",
+      "com.matthewperiut.beehives.ItemListener",
+      "com.matthewperiut.beehives.RecipeListener"
     ],
     "stationapi:event_bus_client": [
     ],

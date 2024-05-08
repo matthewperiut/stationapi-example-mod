@@ -1,6 +1,7 @@
 package com.matthewperiut.beehives;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,17 +64,39 @@ public class BeehiveBlock extends TemplateBlock {
     }
 
     @Override
+    public void onSteppedOn(World world, int x, int y, int z, Entity entity) {
+        if (world.isRemote)
+            return;
+
+        BlockState current = world.getBlockState(x, y, z);
+        world.setBlockStateWithNotify(x, y, z, current.with(HONEY_LEVEL, 5));
+    }
+
+    @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
         if (world.isRemote)
             return true;
 
         BlockState current = world.getBlockState(x, y, z);
         int honey = current.get(HONEY_LEVEL);
-        honey++;
-        if (honey > 5) {
-            ItemStack stack = new ItemStack(Item.DIAMOND);
-            ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
-            world.method_210(var24);
+        if (honey == 5) {
+            boolean gotBottle = false;
+            if (player.inventory.getSelectedItem() != null) {
+                if (player.inventory.getSelectedItem().getItem().id == ItemListener.GlassBottle.id) {
+                    player.inventory.main[player.inventory.selectedSlot].count--;
+                    ItemStack stack = new ItemStack(ItemListener.HoneyBottle);
+                    ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
+                    world.method_210(var24);
+                    gotBottle = true;
+                }
+            }
+
+            if (!gotBottle) {
+                ItemStack stack = new ItemStack(ItemListener.Honeycomb);
+                ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
+                world.method_210(var24);
+            }
+
             honey = 0;
         }
         world.setBlockStateWithNotify(x, y, z, current.with(HONEY_LEVEL, honey));
