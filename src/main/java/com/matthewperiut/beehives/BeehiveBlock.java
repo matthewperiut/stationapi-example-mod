@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.DungeonFeature;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.DirectionProperty;
@@ -64,15 +65,6 @@ public class BeehiveBlock extends TemplateBlock {
     }
 
     @Override
-    public void onSteppedOn(World world, int x, int y, int z, Entity entity) {
-        if (world.isRemote)
-            return;
-
-        BlockState current = world.getBlockState(x, y, z);
-        world.setBlockStateWithNotify(x, y, z, current.with(HONEY_LEVEL, 5));
-    }
-
-    @Override
     public boolean onUse(World world, int x, int y, int z, PlayerEntity player) {
         if (world.isRemote)
             return true;
@@ -90,7 +82,6 @@ public class BeehiveBlock extends TemplateBlock {
                     gotBottle = true;
                 }
             }
-
             if (!gotBottle) {
                 ItemStack stack = new ItemStack(ItemListener.Honeycomb);
                 ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);

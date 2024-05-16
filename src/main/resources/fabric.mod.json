@@ -23,9 +23,11 @@
     "stationapi:event_bus": [
       "com.matthewperiut.beehives.BlockListener",
       "com.matthewperiut.beehives.ItemListener",
-      "com.matthewperiut.beehives.RecipeListener"
+      "com.matthewperiut.beehives.RecipeListener",
+      "com.matthewperiut.beehives.entity.EntityListener"
     ],
     "stationapi:event_bus_client": [
+      "com.matthewperiut.beehives.client.entity.EntityRendererListener"
     ],
     "stationapi:event_bus_server": [
     ]
