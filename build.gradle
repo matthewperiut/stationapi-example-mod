@@ -1,11 +1,10 @@
 plugins {
-	id 'fabric-loom' version '1.6.9'
-	id 'babric-loom-extension' version '1.6.11'
+	id 'fabric-loom' version '1.7.3'
+	id 'babric-loom-extension' version '1.7.4'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -17,10 +16,6 @@ loom {
 	}
 	customMinecraftManifest.set("https://babric.github.io/manifest-polyfill/${minecraft_version}.json")
 	intermediaryUrl.set("https://maven.glass-launcher.net/babric/babric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
-}
-
-babric {
-	disableM1Fixes.set(true) // Uncomment for better performance on some systems. Don't uncomment if you use an apple M series machine, though.
 }
 
 repositories {
@@ -87,6 +82,7 @@ dependencies {
 	modImplementation("net.glasslauncher.mods:GlassConfigAPI:${project.gcapi_version}") { transitive false }
 	modImplementation("com.github.calmilamsy:ModMenu:${project.modmenu_version}") { transitive false }
 	modImplementation("com.github.matthewperiut:spc-babric:${spc_version}") { transitive false }
+	modImplementation("com.github.matthewperiut:accessory-api:${project.accessory_version}") { transitive false }
 	modImplementation("net.glasslauncher:HowManyItems-Fabric-Unofficial:${project.howmanyitems_version}") {transitive false }
 	modImplementation("maven.modrinth:bh-creative:${project.bhcreative_version}") { transitive false }
 
@@ -94,7 +90,6 @@ dependencies {
 	modRuntimeOnly "com.github.GeyserMC:MCAuthLib:d9d773e5d50327c33898c65cd545a4f6ef3ba1b5" // needed for mojang fix
 	modRuntimeOnly ("maven.modrinth:mojangfix-stationapi-edition:${mojang_fix_stapi_version}") { transitive false }
 	modRuntimeOnly ("maven.modrinth:thirdpersonfix-babric:${thirdpersonfix_version}") { transitive false }
-	modRuntimeOnly ("maven.modrinth:gambac:${gambac_version}") { transitive false }
 
 	// Runtime Convenience
 	modRuntimeOnly ("com.github.matthewperiut:stapi-fast-intro:17a7ed0dc4") { transitive false }
