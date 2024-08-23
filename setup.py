@@ -67,8 +67,8 @@ if not os.path.exists("src/main/java/net/glasslauncher/example"):
                     pass
         delete_directory("src/")
         shutil.copytree("backup/src/", "src/")
-        replace_line('gradle.properties', 14, '	archives_base_name=com.example')
-        replace_line('gradle.properties', 13, '	maven_group=fabric-example-mod')
+        replace_line('gradle.properties', 14, '	archives_base_name=fabric-example-mod')
+        replace_line('gradle.properties', 13, '	maven_group=com.example')
     else:
         quit()
 
