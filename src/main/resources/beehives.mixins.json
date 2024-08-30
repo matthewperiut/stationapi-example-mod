@@ -4,8 +4,7 @@
   "package": "com.matthewperiut.beehives.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "DungeonFeatureMixin",
-    "MobEntityAccessor"
+    "DungeonFeatureMixin"
   ],
   "server": [
   ],

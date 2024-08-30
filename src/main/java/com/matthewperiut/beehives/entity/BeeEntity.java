@@ -1,16 +1,9 @@
 package com.matthewperiut.beehives.entity;
 
 import com.matthewperiut.beehives.BlockListener;
-import com.matthewperiut.beehives.mixin.MobEntityAccessor;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.PigEntity;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.server.entity.MobSpawnDataProvider;
@@ -18,7 +11,6 @@ import net.modificationstation.stationapi.api.util.Identifier;
 import net.modificationstation.stationapi.api.util.math.Vec3d;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.matthewperiut.beehives.BeehiveBlock.HONEY_LEVEL;
 import static com.matthewperiut.beehives.entity.EntityListener.NAMESPACE;
@@ -35,13 +27,13 @@ public class BeeEntity extends AnimalEntity implements MobSpawnDataProvider {
         return NAMESPACE.id("Bee");
     }
 
-    @Override //get Hurt Sound
-    protected String method_912() {
+    @Override
+    protected String getHurtSound() {
         return "beehives:mobs.bee.beehurt";
     }
 
-    @Override //get Death Sound
-    protected String method_913() {
+    @Override
+    protected String getDeathSound() {
         return "beehives:mobs.bee.beedeath";
     }
 
@@ -70,7 +62,7 @@ public class BeeEntity extends AnimalEntity implements MobSpawnDataProvider {
         this.velocityY += gravity;
 
         // Apply hovering behavior
-        this.velocityY += amplitude * Math.sin(frequency * this.field_1645);
+        this.velocityY += amplitude * Math.sin(frequency * this.age);
 
         // Calculate targetY based on nearest non-air block below
         double targetY = y - 1;
@@ -95,20 +87,18 @@ public class BeeEntity extends AnimalEntity implements MobSpawnDataProvider {
         this.velocityY *= dampingFactor;
 
         // Fall Distance
-        field_1636 = 0;
+        fallDistance = 0;
     }
 
     Vec3d target;
     public void goToBlock(Vec3d pos) {
         target = pos;
-        ((MobEntityAccessor) this).setField_661(
-                this.world.method_189(this, (int) pos.x, (int) pos.y, (int) pos.z, 16.0F));
+        path = this.world.method_189(this, (int) pos.x, (int) pos.y, (int) pos.z, 16.0F);
     }
 
     public void stopMoving() {
         target = null;
-        ((MobEntityAccessor) this).setField_661(
-                null);
+        path = null;
     }
 
     BlockPos homeBlock;
@@ -169,8 +159,7 @@ public class BeeEntity extends AnimalEntity implements MobSpawnDataProvider {
         super.tick();
         Vec3d pos = new Vec3d(x,y,z);
 
-        // ticks
-        if (field_1645 % 5 == 0) {
+        if (age % 5 == 0) {
             if (home == null) {
                 home = getHome();
             } else {
@@ -220,8 +209,8 @@ public class BeeEntity extends AnimalEntity implements MobSpawnDataProvider {
     }
 
     @Override
-    protected void method_910() {
-        super.method_910();
+    protected void tickLiving() {
+        super.tickLiving();
         jumping = false;
     }
 }

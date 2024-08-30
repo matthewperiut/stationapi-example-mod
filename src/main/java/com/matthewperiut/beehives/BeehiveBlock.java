@@ -1,14 +1,12 @@
 package com.matthewperiut.beehives;
 
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.DungeonFeature;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.DirectionProperty;
@@ -77,15 +75,15 @@ public class BeehiveBlock extends TemplateBlock {
                 if (player.inventory.getSelectedItem().getItem().id == ItemListener.GlassBottle.id) {
                     player.inventory.main[player.inventory.selectedSlot].count--;
                     ItemStack stack = new ItemStack(ItemListener.HoneyBottle);
-                    ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
-                    world.method_210(var24);
+                    ItemEntity entity = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
+                    world.spawnEntity(entity);
                     gotBottle = true;
                 }
             }
             if (!gotBottle) {
                 ItemStack stack = new ItemStack(ItemListener.Honeycomb);
                 ItemEntity var24 = new ItemEntity(world, x + 0.5f, y + 1, z + 0.5f, stack);
-                world.method_210(var24);
+                world.spawnEntity(var24);
             }
 
             honey = 0;
