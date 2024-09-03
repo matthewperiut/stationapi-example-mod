@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "awesometutorial",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Awesome Tutorial Mod",
+  "description": "This is gonna show how to make b1.7.3 mods",
   "authors": [
-    "Me!"
+    "Slainlight"
   ],
   "contact": {
     "homepage": "https://glass-launcher.net/",
@@ -14,22 +14,25 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/examplemod/icon.png",
+  "icon": "assets/awesometutorial/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.glasslauncher.example.ExampleMod"
+      "com.matthewperiut.awesometutorial.AwesomeTutorialMod"
     ],
     "stationapi:event_bus": [
+      "com.matthewperiut.awesometutorial.block.TutorialBlocks",
+      "com.matthewperiut.awesometutorial.recipe.AwesomeRecipes"
     ],
     "stationapi:event_bus_client": [
+      "com.matthewperiut.awesometutorial.client.TextureListener"
     ],
     "stationapi:event_bus_server": [
     ]
   },
   "mixins": [
-    "examplemod.mixins.json"
+    "awesometutorial.mixins.json"
   ],
 
   "depends": {
